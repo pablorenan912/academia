@@ -1,0 +1,72 @@
+{% extends "gym/base.html" %}
+{% block title %}{{ aluno.nome }} - Academia{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>{{ aluno.nome }}</h1>
+        <p class="page-subtitle">
+            {% if aluno.ativo %}
+            <span class="badge-status yes">Ativo</span>
+            {% else %}
+            <span class="badge-status no">Inativo</span>
+            {% endif %}
+        </p>
+    </div>
+    <a href="{% url 'gym:aluno_update' aluno.pk %}" class="btn btn-secondary">Editar</a>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="mb-3">Dados cadastrais</h5>
+        <div class="row row-gap-2">
+            <div class="col-sm-6"><span class="page-subtitle d-block">CPF</span>{{ aluno.cpf }}</div>
+            <div class="col-sm-6"><span class="page-subtitle d-block">E-mail</span>{{ aluno.email|default:"—" }}</div>
+            <div class="col-sm-6"><span class="page-subtitle d-block">Telefone</span>{{ aluno.telefone|default:"—" }}</div>
+            <div class="col-sm-6"><span class="page-subtitle d-block">Data de nascimento</span>{{ aluno.data_nascimento|default:"—" }}</div>
+            <div class="col-sm-6"><span class="page-subtitle d-block">Plano atual</span>{{ aluno.plano|default:"Nenhum" }}</div>
+        </div>
+    </div>
+</div>
+
+<h5 class="mb-3">Histórico de pagamentos</h5>
+<div class="table-wrap mb-4">
+    <table class="table table-striped mb-0">
+        <thead><tr><th>Data</th><th>Valor</th><th>Referente a</th><th>Forma</th></tr></thead>
+        <tbody>
+            {% for pagamento in pagamentos %}
+            <tr>
+                <td>{{ pagamento.data_pagamento }}</td>
+                <td>R$ {{ pagamento.valor }}</td>
+                <td>{{ pagamento.referente_a }}</td>
+                <td>{{ pagamento.get_forma_pagamento_display }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="empty-state">Nenhum pagamento registrado.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<h5 class="mb-3">Frequência</h5>
+<div class="table-wrap">
+    <table class="table table-striped mb-0">
+        <thead><tr><th>Data</th><th>Status</th></tr></thead>
+        <tbody>
+            {% for frequencia in frequencias %}
+            <tr>
+                <td>{{ frequencia.data }}</td>
+                <td>
+                    {% if frequencia.presente %}
+                    <span class="badge-status yes">Presente</span>
+                    {% else %}
+                    <span class="badge-status no">Ausente</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="2" class="empty-state">Nenhum registro de frequência.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

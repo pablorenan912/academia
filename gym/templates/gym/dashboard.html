@@ -1,0 +1,40 @@
+{% extends "gym/base.html" %}
+{% block title %}Dashboard - Academia{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Olá, {{ user.username }}</h1>
+        <p class="page-subtitle">O que você gostaria de gerenciar hoje?</p>
+    </div>
+</div>
+<div class="row g-3">
+    <div class="col-md-3 col-sm-6">
+        <a href="{% url 'gym:aluno_list' %}" class="tile">
+            <span class="tile-icon">🧑</span>
+            <h5>Alunos</h5>
+            <p>Cadastrar e consultar alunos.</p>
+        </a>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <a href="{% url 'gym:plano_list' %}" class="tile">
+            <span class="tile-icon">🏋️</span>
+            <h5>Planos de treino</h5>
+            <p>Cadastrar planos de treino.</p>
+        </a>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <a href="{% url 'gym:pagamento_list' %}" class="tile">
+            <span class="tile-icon">💳</span>
+            <h5>Pagamentos</h5>
+            <p>Registrar pagamentos dos alunos.</p>
+        </a>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <a href="{% url 'gym:frequencia_list' %}" class="tile">
+            <span class="tile-icon">📅</span>
+            <h5>Frequência</h5>
+            <p>Consultar frequência dos alunos.</p>
+        </a>
+    </div>
+</div>
+{% endblock %}

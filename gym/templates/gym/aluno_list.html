@@ -1,0 +1,43 @@
+{% extends "gym/base.html" %}
+{% block title %}Alunos - Academia{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Alunos</h1>
+        <p class="page-subtitle">Cadastro e acompanhamento dos alunos da academia.</p>
+    </div>
+    <a href="{% url 'gym:aluno_create' %}" class="btn btn-primary">+ Novo aluno</a>
+</div>
+<div class="table-wrap">
+    <table class="table table-striped mb-0">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Plano</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for aluno in alunos %}
+            <tr>
+                <td><a href="{% url 'gym:aluno_detail' aluno.pk %}">{{ aluno.nome }}</a></td>
+                <td>{{ aluno.cpf }}</td>
+                <td>{{ aluno.plano|default:"—" }}</td>
+                <td>
+                    {% if aluno.ativo %}
+                    <span class="badge-status yes">Ativo</span>
+                    {% else %}
+                    <span class="badge-status no">Inativo</span>
+                    {% endif %}
+                </td>
+                <td><a href="{% url 'gym:aluno_update' aluno.pk %}">Editar</a></td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="empty-state">Nenhum aluno cadastrado.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

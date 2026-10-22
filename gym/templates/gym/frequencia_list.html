@@ -1,0 +1,34 @@
+{% extends "gym/base.html" %}
+{% block title %}Frequência - Academia{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Frequência</h1>
+        <p class="page-subtitle">Registros de presença dos alunos.</p>
+    </div>
+</div>
+<div class="table-wrap">
+    <table class="table table-striped mb-0">
+        <thead>
+            <tr><th>Aluno</th><th>Data</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+            {% for frequencia in frequencias %}
+            <tr>
+                <td><a href="{% url 'gym:aluno_detail' frequencia.aluno.pk %}">{{ frequencia.aluno.nome }}</a></td>
+                <td>{{ frequencia.data }}</td>
+                <td>
+                    {% if frequencia.presente %}
+                    <span class="badge-status yes">Presente</span>
+                    {% else %}
+                    <span class="badge-status no">Ausente</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3" class="empty-state">Nenhum registro de frequência.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

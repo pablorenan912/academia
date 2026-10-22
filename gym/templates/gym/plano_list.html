@@ -1,0 +1,30 @@
+{% extends "gym/base.html" %}
+{% block title %}Planos de treino - Academia{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Planos de treino</h1>
+        <p class="page-subtitle">Planos oferecidos pela academia.</p>
+    </div>
+    <a href="{% url 'gym:plano_create' %}" class="btn btn-primary">+ Novo plano</a>
+</div>
+<div class="table-wrap">
+    <table class="table table-striped mb-0">
+        <thead>
+            <tr><th>Nome</th><th>Valor mensal</th><th>Duração (dias)</th><th></th></tr>
+        </thead>
+        <tbody>
+            {% for plano in planos %}
+            <tr>
+                <td>{{ plano.nome }}</td>
+                <td>R$ {{ plano.valor_mensal }}</td>
+                <td>{{ plano.duracao_dias }}</td>
+                <td><a href="{% url 'gym:plano_update' plano.pk %}">Editar</a></td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="empty-state">Nenhum plano cadastrado.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

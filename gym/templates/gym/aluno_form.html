@@ -1,0 +1,17 @@
+{% extends "gym/base.html" %}
+{% block title %}Aluno - Academia{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>{% if object %}Editar aluno{% else %}Novo aluno{% endif %}</h1>
+</div>
+<div class="form-card">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="d-flex gap-2 mt-3">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="{% url 'gym:aluno_list' %}" class="btn btn-link">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

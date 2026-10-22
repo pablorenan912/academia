@@ -1,0 +1,31 @@
+{% extends "gym/base.html" %}
+{% block title %}Pagamentos - Academia{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Pagamentos</h1>
+        <p class="page-subtitle">Histórico de pagamentos dos alunos.</p>
+    </div>
+    <a href="{% url 'gym:pagamento_create' %}" class="btn btn-primary">+ Novo pagamento</a>
+</div>
+<div class="table-wrap">
+    <table class="table table-striped mb-0">
+        <thead>
+            <tr><th>Aluno</th><th>Valor</th><th>Data</th><th>Referente a</th><th>Forma</th></tr>
+        </thead>
+        <tbody>
+            {% for pagamento in pagamentos %}
+            <tr>
+                <td><a href="{% url 'gym:aluno_detail' pagamento.aluno.pk %}">{{ pagamento.aluno.nome }}</a></td>
+                <td>R$ {{ pagamento.valor }}</td>
+                <td>{{ pagamento.data_pagamento }}</td>
+                <td>{{ pagamento.referente_a }}</td>
+                <td>{{ pagamento.get_forma_pagamento_display }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="empty-state">Nenhum pagamento registrado.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
