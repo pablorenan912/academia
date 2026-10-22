@@ -162,6 +162,9 @@ venv.bak/
 # Vercel
 .vercel
 
+# Static files: Vercel runs collectstatic itself during the build.
+staticfiles/
+
 # Spyder project settings
 .spyderproject
 .spyproject

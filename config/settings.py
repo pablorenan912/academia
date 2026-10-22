@@ -148,15 +148,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
-# Served by Whitenoise in production (Vercel has no persistent filesystem
-# to run `collectstatic` against at request time, so files are collected at
-# build time and served straight from the WSGI app).
+# Vercel detects STATIC_ROOT, runs `collectstatic` automatically during the
+# build and serves the files from its CDN. WhiteNoise is only used for local
+# development with `vercel dev` / `runserver` when DEBUG=False.
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STORAGES = {
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
 

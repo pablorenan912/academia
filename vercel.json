@@ -1,5 +1,7 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/api/index" }
-  ]
+  "functions": {
+    "config/wsgi.py": {
+      "maxDuration": 30
+    }
+  }
 }
